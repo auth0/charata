@@ -1,0 +1,24 @@
+{
+  "name": "charata",
+  "version": "1.0.0",
+  "description": "Incremental DOM for human beings",
+  "main": "lib/index.js",
+  "directories": {
+    "example": "examples"
+  },
+  "scripts": {
+    "prepublish": "make build",
+    "test": "make test"
+  },
+  "author": "tehsis@gmail.com",
+  "license": "MIT",
+  "repository": "git@github.com:auth0/charata.git",
+  "dependencies": {
+    "incremental-dom": "^0.1.0"
+  },
+  "devDependencies": {
+    "babel": "^5.8.20",
+    "browserify": "^11.0.1",
+    "mochify": "^2.12.0"
+  }
+}
