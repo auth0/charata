@@ -41,4 +41,13 @@ describe('charata', () => {
     assert.ok(myUl.length === 1);
     assert.ok(myLIs.length === 3);
   });
+
+  it('should render elements with no children nor text', () => {
+    el('div', null).renderTo(document.body);
+
+    let myDiv = document.getElementsByTagName('div');
+
+    assert.strictEqual(myDiv.length, 1);
+    assert.strictEqual(myDiv[0].innerHTML, '');
+  });
 });
