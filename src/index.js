@@ -35,7 +35,7 @@ export class EL {
       this.content = new TEXT(this.content);
     }
 
-    if (!Array.isArray(this.content)) {
+    if (null != content && !Array.isArray(this.content)) {
       this.content = [this.content];
     }
 
