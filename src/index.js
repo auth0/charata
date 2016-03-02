@@ -1,12 +1,11 @@
 import ID from 'incremental-dom';
 
-// TODO: Complete
 const TAGS = [
   'div', 'span', 'ul', 'li',
   'form', 'button', 'i',
   'a', 'h1', 'h2', 'h3',
   'h4', 'h5', 'table', 'td', 'tr',
-  'tbody', 'thead'
+  'tbody', 'thead', 'label', 'fieldset'
 ];
 
 const SELF_CLOSING_TAGS = [
@@ -24,8 +23,9 @@ export class EL {
    * @param {string} tag the specific HTML TAG of the Element.
    * @param {null|String|EL|Array} content
    * @param {Array} props
+   * @param {Array} dynamic props
    */
-  constructor(tag, content=null, key='', props=[]) {
+  constructor(tag, content=null, key='', props=[], dynProps=[]) {
     this.tag = tag;
 
     this.content = content;
@@ -41,6 +41,7 @@ export class EL {
 
     this.key = key;
     this.props = props;
+    this.dynProps = dynProps;
   }
 
   /**
@@ -48,13 +49,19 @@ export class EL {
    */
   render() {
     if (null === this.content) {
-      ID.elementVoid(this.tag, this.key, this.props);
+      ID.elementVoid(this.tag, this.key, this.props, ...this.dynProps);
       return;
     }
 
-    ID.elementOpen(this.tag, this.key, this.props);
+    ID.elementOpen(this.tag, this.key, this.props, ...this.dynProps);
 
-    this.content.forEach((c) => c.render());
+    this.content.forEach((c) => {
+      if(typeof c === 'string'){
+        ID.text(c);
+        return;
+      }
+      c.render();
+    });
 
     ID.elementClose(this.tag);
   }
@@ -81,16 +88,16 @@ class TEXT {
 }
 
 let pub = TAGS.reduce((prev, tag) => {
-  prev[tag] = (elms, key, props) => {
-    return new EL(tag, elms, key, props);
+  prev[tag] = (elms, key, props, dynProps) => {
+    return new EL(tag, elms, key, props, dynProps);
   }
 
   return prev;
 }, {});
 
 SELF_CLOSING_TAGS.reduce((prev, tag) => {
- prev[tag] = (key, props) => {
-    return new EL(tag, null, key, props);
+  prev[tag] = (key, props, dynProps) => {
+    return new EL(tag, null, key, props, dynProps);
   }
 
   return prev;
