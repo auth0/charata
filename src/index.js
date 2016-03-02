@@ -56,9 +56,6 @@ export class EL {
     ID.elementOpen(this.tag, this.key, this.props, ...this.dynProps);
 
     this.content.forEach((c) => {
-      if (!c) {
-        return;
-      }
       if(typeof c === 'string'){
         ID.text(c);
         return;
