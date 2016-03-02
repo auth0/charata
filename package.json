@@ -14,7 +14,7 @@
   "license": "MIT",
   "repository": "git@github.com:auth0/charata.git",
   "dependencies": {
-    "incremental-dom": "^0.1.0"
+    "incremental-dom": "^0.3.0"
   },
   "devDependencies": {
     "babel": "^5.8.20",
